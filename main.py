@@ -1,13 +1,13 @@
 import random
 
-from Stacks import VisualStack, Stack
-from Queues import VisualQueue, Queue
-from CircularQueues import VisualCircularQueue, CircularQueue
-from PriorityQueues import VisualPriorityQueue, PriorityQueue
-import StackFrames
+from Stacks.Stacks import VisualStack
+from Queues.Queues import VisualQueue
+from Queues.CircularQueues import VisualCircularQueue
+from Queues.PriorityQueues import VisualPriorityQueue
+from StackFrame import StackFrames
 from Color import Colors
 
-myStack = VisualStack()
+myStack = VisualStack(printVertical=True)
 myQueue = VisualQueue()
 myCircularQueue = VisualCircularQueue()
 myPriorityQueue = VisualPriorityQueue()
@@ -121,6 +121,6 @@ if __name__ == '__main__':
 
     # PriorityQueueExample()
 
-    StackFrames.main()
+    # StackFrames.main()
 
     print("end")

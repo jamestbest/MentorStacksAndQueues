@@ -1,4 +1,4 @@
-from Stacks import VisualStack
+from Stacks.Stacks import VisualStack
 
 
 class StackFrame:

@@ -156,6 +156,7 @@ class VisualStack:
                     out += "<-- pointer: " + str(self.stackPointer)
                 out += "\n"
 
-            out += "-" * (maxLen + 6) + "\n"
+            out += "-" * (maxLen + 6) + ("<-- pointer: -1 (empty)" if self.is_Empty() else "")
+            out += "\n"
 
             print(out)

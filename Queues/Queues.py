@@ -1,51 +1,34 @@
-import Queues
 from Color import Colors
 
 
-class CircularQueue:
+class Queue:
     def __init__(self):
         self.MAX_SIZE = 10
         self.arr = [None] * self.MAX_SIZE
-
-        self.head = -1
-        self.tail = -1
+        self.head = 0  # points to the first element
+        self.tail = -1  # points to the last element
 
     def is_Empty(self):
-        if self.head == -1:
-            return True
-        else:
-            return False
+        return self.head > self.tail
 
     def is_Full(self):
-        if (self.tail + 1) % self.MAX_SIZE == self.head:
-            return True
-        else:
-            return False
+        return self.tail == self.MAX_SIZE - 1
 
     def enqueue(self, data):
         if self.is_Full():
             print("Queue is full\n")
             return
         else:
-            self.tail = (self.tail + 1) % self.MAX_SIZE
+            self.tail += 1
             self.arr[self.tail] = data
-
-            if self.head == -1:
-                self.head = 0
 
     def dequeue(self):
         if self.is_Empty():
             print("Queue is empty\n")
             outValue = None
-
         else:
             outValue = self.arr[self.head]
-
-            if self.head == self.tail:  # queue is empty
-                self.head = -1
-                self.tail = -1
-            else:
-                self.head = (self.head + 1) % self.MAX_SIZE
+            self.head += 1
 
         return outValue
 
@@ -58,21 +41,24 @@ class CircularQueue:
 
         return outValue
 
+    def print(self):
+        print(self.arr)
 
-class VisualCircularQueue(Queues.VisualQueue):
-    def __init__(self):
-        super().__init__()
+
+class VisualQueue:
+    def __init__(self, isCircular=False):
         self.MAX_SIZE = 10
         self.arr = [None] * self.MAX_SIZE
-
-        self.head = -1
+        self.head = 0
         self.tail = -1
 
+        self.isCircular = isCircular
+
     def is_Empty(self):
-        return self.head == -1
+        return self.head > self.tail
 
     def is_Full(self):
-        return (self.tail + 1) % self.MAX_SIZE == self.head
+        return self.tail == self.MAX_SIZE - 1
 
     def enqueue(self, data):
         print(Colors.BLUE + "Enqueueing the value: " + str(data) + Colors.ENDC)
@@ -83,33 +69,25 @@ class VisualCircularQueue(Queues.VisualQueue):
             print(Colors.RED + "Queue is full\n" + Colors.ENDC)
             return
         else:
-            self.tail = (self.tail + 1) % self.MAX_SIZE
+            self.tail += 1
             self.arr[self.tail] = data
-
-            if self.head == -1:
-                self.head = 0
 
         print("\nafter: ")
         self.print()
         print("\n\n")
 
     def dequeue(self):
-        print(Colors.CYAN + "Dequeueing the value: " + str(self.arr[self.head]) + Colors.ENDC)
+        value = self.arr[self.head] if not self.is_Empty() else None
+        print(Colors.CYAN + "Dequeueing the value: " + str(value) + Colors.ENDC)
         print("before: ")
         self.print()
 
         if self.is_Empty():
             print(Colors.RED + "Queue is empty\n" + Colors.ENDC)
             outValue = None
-
         else:
             outValue = self.arr[self.head]
-
-            if self.head == self.tail:  # queue is empty
-                self.head = -1
-                self.tail = -1
-            else:
-                self.head = (self.head + 1) % self.MAX_SIZE
+            self.head += 1
 
         print("\nafter: ")
         self.print()
@@ -123,7 +101,7 @@ class VisualCircularQueue(Queues.VisualQueue):
         self.print()
 
         if self.is_Empty():
-            print(Colors.RED + "Queue is empty\n" + Colors.ENDC)
+            print("Queue is empty\n")
             outValue = None
         else:
             outValue = self.arr[self.head]
@@ -132,3 +110,30 @@ class VisualCircularQueue(Queues.VisualQueue):
         self.print()
         print("\n\n")
         return outValue
+
+    def getPointerPositionInString(self, pointerPosition):
+        if pointerPosition <= -1:
+            return 0
+
+        pos = 1  # [
+        for i in range(pointerPosition):
+            pos += 4  # '',
+            if self.arr[i] is not None:
+                pos += len(self.arr[i])
+
+        return pos
+
+    def getPointerStrings(self):
+        out = ""
+
+        out += "-" * self.getPointerPositionInString(self.head) + ("^H" if self.head != -1 else "") + "\n"
+
+        out += "-" * self.getPointerPositionInString(self.tail) + ("^T" if self.tail != -1 else "")
+
+        return out
+
+    def print(self):
+        print(self.arr)
+        print(self.getPointerStrings())
+        print("value of the head pointer: " + str(self.head))
+        print("value of the tail pointer: " + str(self.tail))
