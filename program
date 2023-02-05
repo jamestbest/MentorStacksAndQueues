@@ -1,0 +1,37 @@
+#PROGRAM 1
+
+1    SUB MAIN():
+2        SUB_A(7)
+3    ENDSUB
+
+4    SUB SUB_A(p1):
+5        SUB_B(p1, 4)
+6        SUB_C(p1 + 1)
+7    ENDSUB
+
+8    SUB SUB_B(p10, y):
+9        x = 12
+10       z = p10 + y + x
+11       SUB_C(z)
+12   ENDSUB
+
+13   SUB SUB_C(p20):
+14       print(p20)
+15   ENDSUB
+
+
+#PROGRAM 2
+
+1    SUB MAIN():
+2        x = FIB(4)
+3        print(x)
+4    ENDSUB
+
+5    SUB FIB(n):
+6        IF n < 2:
+7            RETURN n
+8        ELSE:
+9            a = FIB(n-1)
+10           b = FIB(n-2)
+11           RETURN a + b
+12   ENDSUB
