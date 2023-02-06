@@ -94,7 +94,7 @@ def PROGRAM_2():
     print("PUSHING STACK FRAME FOR FIB(3) FUNCTION AS FIB(1) HAS BEEN CALLED")
     stack.push(StackFrame(11, {"a": 1}, {"n": 3}))
 
-    print("RETURN STATEMENT HAS BEEN REACHED AS 1 < 3 SO RETURNING n (1)")
+    print("RETURN STATEMENT HAS BEEN REACHED AS 1 < 2 SO RETURNING n (1)")
     stack.pop()
 
     print("RETURN STATEMENT REACHED RETURNING a + b (1 + 1 = 2)")
@@ -130,7 +130,7 @@ def PROGRAM_2():
     print("REACHED END OF PROGRAM")
 
 
-def test():
+def getActionsFromFib(n):
     actions = []
 
     def fib(n):
@@ -150,7 +150,7 @@ def test():
 
         return a + b
 
-    def mainTest(n):
+    def main_fib(n):
         actions.append(f"print(\"PUSHING MAIN()'S STACK FRAME AS FIB({n}) CALLED\")")
         actions.append(f"stack.push(StackFrame(2, {{}}, {{}}))")
         x = fib(n)
@@ -162,14 +162,21 @@ def test():
 
         actions.append("print(\"REACHED END OF PROGRAM\")")
 
-    mainTest(6)
-    print(actions)
+    main_fib(n)
+    return actions
 
+def executeFibActions(actions):
+    stack = VisualStack()
+    for action in actions:
+        exec(action)
+
+def createAndExecuteFib(n):
+    actions = getActionsFromFib(n)
+    executeFibActions(actions)
 
 def main():
     # PROGRAM_1()
     # PROGRAM_2()
-    test()
-    print("end")
+    # createAndExecuteFib(5)
 
-main()
+    print("end")
