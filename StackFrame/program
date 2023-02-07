@@ -35,3 +35,5 @@
 10           b = FIB(n-2)
 11           RETURN a + b
 12   ENDSUB
+
+4 = 3 + 2 = 1 + 0 + 1 + 1 + 0
